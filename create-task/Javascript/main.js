@@ -2,10 +2,11 @@ import "../Css/style.css";
 import { Dom } from "./DOM";
 
 function UserInputs() {
+  Dom.Questions.innerHTML = "";
   const Amount = parseFloat(Dom.UserAmount.value);
   const Difficulty = Dom.UserDifficulty.value.toLowerCase();
   const CatogoryStr = Dom.UserCatogory.value;
-  const Catogory = parseFloat(CatogoryStr) + 9;
+  const Catogory = parseFloat(CatogoryStr) + 8;
 
   if ((Catogory <= 9) | (Catogory >= 33)) {
     console.log("Wrong");
@@ -29,10 +30,54 @@ function UserInputs() {
   } else {
     console.log(Amount);
   }
+
+  const URL = `https://opentdb.com/api.php?amount=${Amount}&category=${Catogory}&difficulty=${Difficulty}&type=multiple`;
+
+  console.log(URL);
+  GetData(URL);
+
+  return URL;
 }
 
-const URLCATO = "https://opentdb.com/api_category.php";
+function shuffle(array) {
+  array.sort(() => Math.random() - 0.5);
+}
+
+async function GetData(URL) {
+  const QData = await fetch(URL);
+  const ResultData = await QData.json();
+  console.log(ResultData);
+  let Index = 1;
+  ResultData.results.forEach((el) => {
+    let Quest = [];
+
+    Quest.push(
+      `${el.incorrect_answers[0]}`,
+      `${el.incorrect_answers[1]}`,
+      `${el.incorrect_answers[2]}`,
+      `Correct: ${el.correct_answer}`
+    );
+
+    shuffle(Quest);
+
+    console.log(Quest);
+    let IndexNum = Index++;
+    Dom.Questions.insertAdjacentHTML(
+      "beforeend",
+      `<h3>Q.${IndexNum}${el.question}</h3>
+       <h3 class="QStyles">Category: ${el.category}</h3>
+       <h4 class="QStyles">Difficulty ${el.difficulty}</h4>
+       <p class="QStyles">${Quest[0]}</p>
+       <p class="QStyles">${Quest[1]}</p>
+       <p class="QStyles">${Quest[2]}</p>
+       <p class="QStyles">${Quest[3]}</p>
+       `
+    );
+  });
+}
+
 async function GetList() {
+  const URLCATO = "https://opentdb.com/api_category.php";
   const CatoData = await fetch(URLCATO);
   const CatoJson = await CatoData.json();
   let Index = 1;
@@ -43,7 +88,6 @@ async function GetList() {
       "beforeend",
       `<p>${IndexNum} ${el.name}</p>`
     );
-    console.log(IndexNum);
   });
 }
 
@@ -52,17 +96,7 @@ GetList();
 Dom.Settings.addEventListener("submit", function (abc) {
   UserInputs();
   abc.preventDefault();
+  Dom.Gone.innerHTML = "";
 });
 
-const URL = `https://opentdb.com/api.php?amount=${Amount}&category=${Catogory}&difficulty=${Difficulty}&type=multiple`;
-
-async function CatoInfo() {
-  const CatoData = await fetch(URLCATO);
-  const CatoJson = await CatoData.json();
-  // console.log(CatoJson.trivia_categories);
-  let result = CatoJson.trivia_categories.map((el) => el.name);
-  return result;
-}
-
-const Catogories = await CatoInfo();
-console.log(Catogories);
+async function Questions(URL) {}

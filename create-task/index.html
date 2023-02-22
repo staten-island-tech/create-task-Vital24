@@ -7,25 +7,32 @@
     <title>Trivia</title>
   </head>
   <body>
-    <form class="Settings">
-      <div>
-        <label for="Amount">Amount of Questions</label>
-        <input type="number" id="Amount" required />
+    <section class="GoneAfterSubmit">
+      <form class="Settings">
+        <div id="Choice">
+          <label for="Amount">Amount of Questions</label>
+          <input type="number" id="Amount" required />
+  
+        </div>
+        <div id="Choice">
+          <label for="Difficulty">Difficulty</label>
+          <input type="text" id="Difficulty"/>
+        </div>
+        <div  id="Choice" class="CatoList">
+          <label for="Catogory">Catogory</label>
+  
+          <input type="number" id="Catogory"/>
+  
+        </div>
+        <div id="Choice">
+          <input type="submit" value="Done" class="btn" />
+        </div>
+      </form>
+    </section>
+    
+    <section class="questions">
 
-      </div>
-      <div>
-        <label for="Difficulty">Difficulty</label>
-        <input type="text" id="Difficulty"/>
-      </div>
-      <div class="CatoList  ">
-        <label for="Catogory">Catogory</label>
-
-        <input type="number" id="Catogory"/>
-      </div>
-      <div>
-        <input type="submit" value="Done" class="btn" />
-      </div>
-    </form>
+    </section>
     <div id="app"></div>
     <script type="module" src="./Javascript/main.js"></script>
   </body>
