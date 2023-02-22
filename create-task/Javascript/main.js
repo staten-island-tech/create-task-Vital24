@@ -1,22 +1,61 @@
 import "../Css/style.css";
+import { Dom } from "./DOM";
 
-function catogory() {
-  let input = 30;
-  if ((input >= 10) & (input <= 32)) {
-    let Amount = input;
-    console.log(Amount);
+function UserInputs() {
+  const Amount = parseFloat(Dom.UserAmount.value);
+  const Difficulty = Dom.UserDifficulty.value.toLowerCase();
+  const CatogoryStr = Dom.UserCatogory.value;
+  const Catogory = parseFloat(CatogoryStr) + 9;
+
+  if ((Catogory <= 9) | (Catogory >= 33)) {
+    console.log("Wrong");
   } else {
-    console.log("You suck");
+    console.log("Shit", Catogory);
   }
-  if (condition) {
+
+  if (
+    (Difficulty == "easy") |
+    (Difficulty == "medium") |
+    (Difficulty == "hard") |
+    (Difficulty == "")
+  ) {
+    console.log(Difficulty);
   } else {
+    console.log("Do it Right");
+  }
+
+  if ((Amount >= 51) | (Amount <= 0)) {
+    console.log("Choose a number between 1-50");
+  } else {
+    console.log(Amount);
   }
 }
 
-catogory();
+const URLCATO = "https://opentdb.com/api_category.php";
+async function GetList() {
+  const CatoData = await fetch(URLCATO);
+  const CatoJson = await CatoData.json();
+  let Index = 1;
+
+  CatoJson.trivia_categories.forEach((el) => {
+    let IndexNum = Index++;
+    Dom.CatoList.insertAdjacentHTML(
+      "beforeend",
+      `<p>${IndexNum} ${el.name}</p>`
+    );
+    console.log(IndexNum);
+  });
+}
+
+GetList();
+
+Dom.Settings.addEventListener("submit", function (abc) {
+  UserInputs();
+  abc.preventDefault();
+});
+
 const URL = `https://opentdb.com/api.php?amount=${Amount}&category=${Catogory}&difficulty=${Difficulty}&type=multiple`;
 
-const URLCATO = "https://opentdb.com/api_category.php";
 async function CatoInfo() {
   const CatoData = await fetch(URLCATO);
   const CatoJson = await CatoData.json();
@@ -27,19 +66,3 @@ async function CatoInfo() {
 
 const Catogories = await CatoInfo();
 console.log(Catogories);
-
-// Catogories.forEach((el) => {
-//   i = 9;
-//   i++;
-
-//   let el = i;
-//   console.log(el);
-// });
-
-let CatoId = Catogories.map((el, Index) => {
-  // i = 9;
-  // i++;
-
-  let d = Index;
-  console.log(poo);
-});
