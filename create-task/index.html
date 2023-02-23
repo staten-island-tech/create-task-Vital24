@@ -10,17 +10,23 @@
     <section class="GoneAfterSubmit">
       <form class="Settings">
         <div id="Choice">
-          <label for="Amount">Amount of Questions</label>
+          <label for="Amount">Amount of Questions(1-50)</label>
           <input type="number" id="Amount" required />
-  
+          
         </div>
         <div id="Choice">
           <label for="Difficulty">Difficulty</label>
           <input type="text" id="Difficulty"/>
+          <ul>
+            <li>Easy</li>
+            <li>Medium</li>
+            <li>Hard</li>
+          </ul>
+
         </div>
         <div  id="Choice" class="CatoList">
           <label for="Catogory">Catogory</label>
-  
+          
           <input type="number" id="Catogory"/>
   
         </div>
@@ -30,8 +36,11 @@
       </form>
     </section>
     
-    <section class="questions">
+    <section class="QBox">
 
+    </section>
+    <section class="Answers blur">
+      
     </section>
     <div id="app"></div>
     <script type="module" src="./Javascript/main.js"></script>

@@ -24,9 +24,9 @@ a:hover {
 }
 
 body {
-  align-content: center;
-  margin: 0;
-  display: flex;
+
+
+
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
@@ -37,14 +37,6 @@ h1 {
   line-height: 1.1;
 }
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-
-
-}
 
 .Settings{
   display: flex;
@@ -108,9 +100,24 @@ button:focus-visible {
   border: 1rem;
   border-color: #1a1a1a;
   text-align: center;
-  align-items: center;
+
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.questions{
-  justify-content: center;
+.SStyles{
+
+  text-align: center;
 }
+.QBox{
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+.blur {
+  font-size: 40px;
+  color: transparent;
+  text-shadow: 0 0 8px #000;}

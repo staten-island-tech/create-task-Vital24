@@ -8,33 +8,25 @@ function UserInputs() {
   const CatogoryStr = Dom.UserCatogory.value;
   const Catogory = parseFloat(CatogoryStr) + 8;
 
-  if ((Catogory <= 9) | (Catogory >= 33)) {
-    console.log("Wrong");
-  } else {
-    console.log("Shit", Catogory);
-  }
-
-  if (
-    (Difficulty == "easy") |
-    (Difficulty == "medium") |
-    (Difficulty == "hard") |
-    (Difficulty == "")
-  ) {
-    console.log(Difficulty);
-  } else {
-    console.log("Do it Right");
-  }
-
-  if ((Amount >= 51) | (Amount <= 0)) {
-    console.log("Choose a number between 1-50");
-  } else {
-    console.log(Amount);
-  }
-
   const URL = `https://opentdb.com/api.php?amount=${Amount}&category=${Catogory}&difficulty=${Difficulty}&type=multiple`;
 
   console.log(URL);
-  GetData(URL);
+
+  if (
+    (Catogory >= 8) | (Catogory <= 32) &&
+    (Amount <= 50) | (Amount >= 1) &&
+    (Difficulty == "easy") |
+      (Difficulty == "medium") |
+      (Difficulty == "hard") |
+      (Difficulty == "")
+  ) {
+    GetData(URL);
+  } else {
+    Dom.Questions.insertAdjacentHTML(
+      "beforeend",
+      "Error: The settings is wrong"
+    );
+  }
 
   return URL;
 }
@@ -48,9 +40,11 @@ async function GetData(URL) {
   const ResultData = await QData.json();
   console.log(ResultData);
   let Index = 1;
+  let CorrectA = [];
   ResultData.results.forEach((el) => {
     let Quest = [];
 
+    CorrectA.push(`${el.correct_answer}`);
     Quest.push(
       `${el.incorrect_answers[0]}`,
       `${el.incorrect_answers[1]}`,
@@ -64,16 +58,34 @@ async function GetData(URL) {
     let IndexNum = Index++;
     Dom.Questions.insertAdjacentHTML(
       "beforeend",
-      `<h3>Q.${IndexNum}${el.question}</h3>
-       <h3 class="QStyles">Category: ${el.category}</h3>
-       <h4 class="QStyles">Difficulty ${el.difficulty}</h4>
-       <p class="QStyles">${Quest[0]}</p>
-       <p class="QStyles">${Quest[1]}</p>
-       <p class="QStyles">${Quest[2]}</p>
-       <p class="QStyles">${Quest[3]}</p>
+      `<h3 class="SStyles">Q.${IndexNum}${el.question}</h3>
+       <h3 class="SStyles">${el.category}</h3>
+       <h4 class="SStyles">${
+         el.difficulty.charAt(0).toUpperCase() + el.difficulty.slice(1)
+       }</h4>
+       <p class="Questions QStyles">${Quest[0]}</p>
+       <p class="Questions QStyles">${Quest[1]}</p>
+       <p class="Questions QStyles">${Quest[2]}</p>
+       <p class="Questions QStyles">${Quest[3]}</p>
+       
        `
     );
   });
+  let Num = 1;
+  CorrectA.forEach((el) => {
+    let IndexNum = Num++;
+    Dom.Answers.insertAdjacentHTML(
+      "beforeend",
+
+      `<h5 class="">${IndexNum}- ${el}</h5>
+     `
+    );
+  });
+  Dom.Answers.addEventListener("click", function (abc) {
+    abc.preventDefault();
+    Dom.Answers.classList.remove("blur");
+  });
+  console.log(CorrectA);
 }
 
 async function GetList() {
@@ -98,5 +110,3 @@ Dom.Settings.addEventListener("submit", function (abc) {
   abc.preventDefault();
   Dom.Gone.innerHTML = "";
 });
-
-async function Questions(URL) {}
