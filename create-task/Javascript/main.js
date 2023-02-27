@@ -49,7 +49,7 @@ async function GetData(URL) {
       `${el.incorrect_answers[0]}`,
       `${el.incorrect_answers[1]}`,
       `${el.incorrect_answers[2]}`,
-      `Correct: ${el.correct_answer}`
+      `${el.correct_answer}`
     );
 
     shuffle(Quest);
@@ -58,7 +58,7 @@ async function GetData(URL) {
     let IndexNum = Index++;
     Dom.Questions.insertAdjacentHTML(
       "beforeend",
-      `<h3 class="SStyles">Q.${IndexNum}${el.question}</h3>
+      `<h3 class="SStyles">Q.${IndexNum} ${el.question}</h3>
        <h3 class="SStyles">${el.category}</h3>
        <h4 class="SStyles">${
          el.difficulty.charAt(0).toUpperCase() + el.difficulty.slice(1)
@@ -71,6 +71,7 @@ async function GetData(URL) {
        `
     );
   });
+
   let Num = 1;
   CorrectA.forEach((el) => {
     let IndexNum = Num++;

@@ -118,6 +118,6 @@ button:focus-visible {
 
 
 .blur {
-  font-size: 40px;
+  font-size: 1rem;
   color: transparent;
   text-shadow: 0 0 8px #000;}
