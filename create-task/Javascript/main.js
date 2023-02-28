@@ -24,7 +24,7 @@ function UserInputs() {
   } else {
     Dom.Questions.insertAdjacentHTML(
       "beforeend",
-      "Error: The settings is wrong"
+      "<h1>Error: The settings is wrong</h1>"
     );
   }
 
