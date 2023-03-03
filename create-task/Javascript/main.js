@@ -1,12 +1,13 @@
 import "../Css/style.css";
 import { Dom } from "./DOM";
 
-function UserInputs() {
+const Amount = parseFloat(Dom.UserAmount.value);
+const Difficulty = Dom.UserDifficulty.value.toLowerCase();
+const CatogoryStr = Dom.UserCatogory.value;
+const Catogory = parseFloat(CatogoryStr) + 8;
+
+function UserInputs(Amount, Difficulty, Catogory) {
   Dom.Questions.innerHTML = "";
-  const Amount = parseFloat(Dom.UserAmount.value);
-  const Difficulty = Dom.UserDifficulty.value.toLowerCase();
-  const CatogoryStr = Dom.UserCatogory.value;
-  const Catogory = parseFloat(CatogoryStr) + 8;
 
   const URL = `https://opentdb.com/api.php?amount=${Amount}&category=${Catogory}&difficulty=${Difficulty}&type=multiple`;
 
@@ -107,7 +108,7 @@ async function GetList() {
 GetList();
 
 Dom.Settings.addEventListener("submit", function (abc) {
-  UserInputs();
+  UserInputs(Amount, Difficulty, Catogory);
   abc.preventDefault();
   Dom.Gone.innerHTML = "";
 });
