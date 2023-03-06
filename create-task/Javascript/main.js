@@ -1,17 +1,15 @@
 import "../Css/style.css";
 import { Dom } from "./DOM";
 
-const Amount = parseFloat(Dom.UserAmount.value);
-const Difficulty = Dom.UserDifficulty.value.toLowerCase();
-const CatogoryStr = Dom.UserCatogory.value;
-const Catogory = parseFloat(CatogoryStr) + 8;
-
-function UserInputs(Amount, Difficulty, Catogory) {
+function UserInputs() {
   Dom.Questions.innerHTML = "";
 
-  const URL = `https://opentdb.com/api.php?amount=${Amount}&category=${Catogory}&difficulty=${Difficulty}&type=multiple`;
+  const Amount = parseFloat(Dom.UserAmount.value);
+  const Difficulty = Dom.UserDifficulty.value.toLowerCase();
+  const CatogoryStr = Dom.UserCatogory.value;
+  const Catogory = parseFloat(CatogoryStr) + 8;
 
-  console.log(URL);
+  const URL = `https://opentdb.com/api.php?amount=${Amount}&category=${Catogory}&difficulty=${Difficulty}&type=multiple`;
 
   if (
     (Catogory >= 8) | (Catogory <= 32) &&
@@ -39,7 +37,7 @@ function shuffle(array) {
 async function GetData(URL) {
   const QData = await fetch(URL);
   const ResultData = await QData.json();
-  console.log(ResultData);
+
   let Index = 1;
   let CorrectA = [];
   ResultData.results.forEach((el) => {
@@ -55,7 +53,6 @@ async function GetData(URL) {
 
     shuffle(Quest);
 
-    console.log(Quest);
     let IndexNum = Index++;
     Dom.Questions.insertAdjacentHTML(
       "beforeend",
@@ -87,7 +84,6 @@ async function GetData(URL) {
     abc.preventDefault();
     Dom.Answers.classList.remove("blur");
   });
-  console.log(CorrectA);
 }
 
 async function GetList() {
@@ -108,7 +104,7 @@ async function GetList() {
 GetList();
 
 Dom.Settings.addEventListener("submit", function (abc) {
-  UserInputs(Amount, Difficulty, Catogory);
+  UserInputs();
   abc.preventDefault();
   Dom.Gone.innerHTML = "";
 });
